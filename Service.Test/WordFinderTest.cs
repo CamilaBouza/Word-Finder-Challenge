@@ -12,9 +12,9 @@ namespace Service.Test1
             string set = "lmfgolmyxrwijkkygoudgtmapefnadpvlmfgolmyxrwijkkygoudgtmapefnadpva";
             IEnumerable<string> matrix = Enumerable.Repeat(set, MatrixMaxSize + 1);
 
-            var exception = Assert.Throws<Exception>(() => new WordFinder(matrix));
+            var exception = Assert.Throws<Exception>(() => new WordFinderSpanOnlySolution(matrix));
 
-            Assert.Equal($"Matrix size and content must not be higher than {MatrixMaxSize}", exception.Message);
+            Assert.Equal($"Matrix size must not be higher than {MatrixMaxSize}x{MatrixMaxSize}", exception.Message);
 
         }
 
@@ -24,9 +24,9 @@ namespace Service.Test1
             string set = "lmfgolmyxrwijkkygoudgtmapefnadpvlmfgolmyxrwijkkygoudgtmapefnadpva";
             IEnumerable<string> matrix = Enumerable.Repeat(set, MatrixMaxSize);
 
-            var exception = Assert.Throws<Exception>(() => new WordFinder(matrix));
+            var exception = Assert.Throws<Exception>(() => new WordFinderSpanOnlySolution(matrix));
 
-            Assert.Equal($"Matrix size and content must not be higher than {MatrixMaxSize}", exception.Message);
+            Assert.Equal($"Matrix size must not be higher than {MatrixMaxSize}x{MatrixMaxSize}", exception.Message);
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace Service.Test1
             string set = "lmf";
             IEnumerable<string> matrix = Enumerable.Repeat(set, 3);
 
-            var wordFinder = new WordFinder(matrix);
+            var wordFinder = new WordFinderSpanOnlySolution(matrix);
 
             var result = wordFinder.Find(wordStream);
 
@@ -49,9 +49,9 @@ namespace Service.Test1
         {
             IEnumerable<string> wordStream = ["dog", "cat"];
 
-            IEnumerable<string> matrix = ["dog", "roc", "ogl"];
+            IEnumerable<string> matrix = ["dog", "roc", "ogl", "myx"];
 
-            var wordFinder = new WordFinder(matrix);
+            var wordFinder = new WordFinderSpanOnlySolution(matrix);
 
             var result = wordFinder.Find(wordStream);
 
@@ -66,9 +66,9 @@ namespace Service.Test1
         {
             IEnumerable<string> wordStream = ["dog", "cat"];
 
-            IEnumerable<string> matrix = ["adc", "roc", "ogl"];
+            IEnumerable<string> matrix = ["adc", "roc", "ogl", "myx"];
 
-            var wordFinder = new WordFinder(matrix);
+            var wordFinder = new WordFinderSpanOnlySolution(matrix);
 
             var result = wordFinder.Find(wordStream);
 
@@ -83,9 +83,9 @@ namespace Service.Test1
         {
             IEnumerable<string> wordStream = ["dog", "cat"];
 
-            IEnumerable<string> matrix = ["adc", "dog", "agt"];
+            IEnumerable<string> matrix = ["adc", "dog", "agt", "myx"];
 
-            var wordFinder = new WordFinder(matrix);
+            var wordFinder = new WordFinderSpanOnlySolution(matrix);
 
             var result = wordFinder.Find(wordStream);
 
@@ -100,9 +100,9 @@ namespace Service.Test1
         {
             IEnumerable<string> wordStream = ["dog", "cat", "schedule"];
 
-            IEnumerable<string> matrix = ["adc", "dog", "agt"];
+            IEnumerable<string> matrix = ["adc", "dog", "agt", "myx"];
 
-            var wordFinder = new WordFinder(matrix);
+            var wordFinder = new WordFinderSpanOnlySolution(matrix);
 
             var result = wordFinder.Find(wordStream);
 
@@ -117,9 +117,9 @@ namespace Service.Test1
         {
             IEnumerable<string> wordStream = ["dog", "cat", "cat"];
 
-            IEnumerable<string> matrix = ["adc", "dog", "agt"];
+            IEnumerable<string> matrix = ["adc", "dog", "agt", "myx"];
 
-            var wordFinder = new WordFinder(matrix);
+            var wordFinder = new WordFinderSpanOnlySolution(matrix);
 
             var result = wordFinder.Find(wordStream);
 
@@ -137,7 +137,7 @@ namespace Service.Test1
             string set = "lcatcatmyxrwijdoggoudgtmapebatsunlmfcarmyxrwboxkongoudintmapehat";
             IEnumerable<string> matrix = Enumerable.Repeat(set, MatrixMaxSize);
 
-            var wordFinder = new WordFinder(matrix);
+            var wordFinder = new WordFinderSpanOnlySolution(matrix);
 
             var result = wordFinder.Find(wordStream);
 
@@ -152,7 +152,7 @@ namespace Service.Test1
             Assert.Equal(expectedList, list);
         }
 
-        [Fact]
+        [Fact(Skip = "Run manually and in release mode to see the benchmark results")]
         public void PerformanceRun()
         {
             WordFinderBenchmarks.Run();

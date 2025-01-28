@@ -9,7 +9,10 @@ namespace Service.Test
     [RankColumn]
     public class WordFinderBenchmarks
     {
-        private readonly WordFinder _wordFinder = new(Enumerable.Repeat("lcatcatmyxrwijdoggoudgtmapefnadpvlmfgolmyxrwijkkygoudgtmapefnuio", 64));
+        private const string Set = "lcatcatmyxrwijdoggoudgtmapefnadpvlmfgolmyxrwijkkygoudgtmapefnuio";
+        private readonly WordFinderIndexOfSolution _wordFinderIndexOf = new(Enumerable.Repeat(Set, 64));
+        private readonly WordFinderRegexSolution _wordFinderRegex = new(Enumerable.Repeat(Set, 64));
+        private readonly WordFinderSpanOnlySolution _wordFinderSpanOnly = new(Enumerable.Repeat(Set, 64));
         private readonly IEnumerable<string> _wordStream = ["cat", "dog", "bat", "sun", "car", "box", "hat", "run", "it", "is", "an", "on", "at", "to", "in", "by"];
 
         public static void Run()
@@ -18,15 +21,21 @@ namespace Service.Test
         }
 
         [Benchmark(Baseline = true)]
-        public void WordFinderBenchmark()
+        public void WordFinderBenchmarkSpanOnly()
         {
-            _wordFinder.Find(_wordStream);
+            _wordFinderSpanOnly.Find(_wordStream);
         }
 
         [Benchmark]
-        public void WordFinderBenchmark2()
+        public void WordFinderBenchmarkIndexOf()
         {
-            _wordFinder.FindRegexSolution(_wordStream);
+            _wordFinderIndexOf.Find(_wordStream);
+        }
+
+        [Benchmark]
+        public void WordFinderBenchmarkRegexSolution()
+        {
+            _wordFinderRegex.Find(_wordStream);
         }
     }
 }
