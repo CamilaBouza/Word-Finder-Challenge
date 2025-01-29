@@ -1,4 +1,5 @@
-﻿using Service.Interfaces;
+﻿using Service.Exceptions;
+using Service.Interfaces;
 using Service.Models;
 using System.Text;
 
@@ -19,7 +20,7 @@ namespace Service
 
             if (MatrixExceedsMaxSize())
             {
-                throw new Exception($"Matrix size must not be higher than {MatrixMaxSize}x{MatrixMaxSize}");
+                throw new MatrixSizeException($"Matrix size must not be higher than {MatrixMaxSize}x{MatrixMaxSize}");
             }
 
             _matrix = matrix;

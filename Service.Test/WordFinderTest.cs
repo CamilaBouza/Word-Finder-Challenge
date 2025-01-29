@@ -1,3 +1,4 @@
+using Service.Exceptions;
 using Service.Test;
 
 namespace Service.Test1
@@ -12,7 +13,7 @@ namespace Service.Test1
             string set = "lmfgolmyxrwijkkygoudgtmapefnadpvlmfgolmyxrwijkkygoudgtmapefnadpva";
             IEnumerable<string> matrix = Enumerable.Repeat(set, MatrixMaxSize + 1);
 
-            var exception = Assert.Throws<Exception>(() => new WordFinderSpanOnlySolution(matrix));
+            var exception = Assert.Throws<MatrixSizeException>(() => new WordFinderSpanOnlySolution(matrix));
 
             Assert.Equal($"Matrix size must not be higher than {MatrixMaxSize}x{MatrixMaxSize}", exception.Message);
 
@@ -24,7 +25,7 @@ namespace Service.Test1
             string set = "lmfgolmyxrwijkkygoudgtmapefnadpvlmfgolmyxrwijkkygoudgtmapefnadpva";
             IEnumerable<string> matrix = Enumerable.Repeat(set, MatrixMaxSize);
 
-            var exception = Assert.Throws<Exception>(() => new WordFinderSpanOnlySolution(matrix));
+            var exception = Assert.Throws<MatrixSizeException>(() => new WordFinderSpanOnlySolution(matrix));
 
             Assert.Equal($"Matrix size must not be higher than {MatrixMaxSize}x{MatrixMaxSize}", exception.Message);
         }
